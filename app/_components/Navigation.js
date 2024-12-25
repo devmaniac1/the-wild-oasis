@@ -3,7 +3,6 @@ import { auth } from "@/app/_lib/auth";
 
 export default async function Navigation() {
   const session = await auth();
-  // console.log(session);
   return (
     <nav className="z-10 text-xl">
       <ul className="flex gap-16 items-center">
@@ -24,25 +23,29 @@ export default async function Navigation() {
           </Link>
         </li>
         <li>
-          {session?.user.image ? (
+          {session && session.user ? (
             <Link
               href="/account"
               className="hover:text-accent-400 transition-colors flex items-center gap-4"
             >
-              <img
-                src={session.user.image}
-                className="h-10 rounded-full object-cover brightness-75"
-                alt={session.user.name}
-                referrerPolicy="no-referrer"
-              />
-              <span>Guest area</span>
+              {session.user.image != undefined ? (
+                <img
+                  src={session.user.image}
+                  className="h-10 rounded-full object-cover brightness-75"
+                  alt={session.user.name}
+                  referrerPolicy="no-referrer"
+                />
+              ) : (
+                <span className="text-xs">({session.user.name || ""})</span>
+              )}
+              Guest area
             </Link>
           ) : (
             <Link
               href="/account"
               className="hover:text-accent-400 transition-colors flex items-center gap-2"
             >
-              <span className="text-xs">({session.user.name})</span>
+              {/* <span className="text-xs">({session.user.name})</span> */}
               Guest area
             </Link>
           )}
