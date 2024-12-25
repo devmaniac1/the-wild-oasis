@@ -40,8 +40,9 @@ export default async function Navigation() {
           ) : (
             <Link
               href="/account"
-              className="hover:text-accent-400 transition-colors"
+              className="hover:text-accent-400 transition-colors flex items-center gap-2"
             >
+              <span className="text-xs">({session.user.name})</span>
               Guest area
             </Link>
           )}
